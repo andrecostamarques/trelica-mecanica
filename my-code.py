@@ -13,6 +13,7 @@ joints = pd.read_excel("Data/Ex1.xlsx", "Joint") # Truss joints
 
 
 print(elements)
+print(joints)
 
 ### Solve Reactions ### ----------------------------------------------------------------------
 
