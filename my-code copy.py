@@ -360,6 +360,18 @@ print(joints[["RX", "RY"]])
 print(" ")
 print(elements[["Name", "Value"]])
 
+print("---------------")
+print("\n")
+for i in range (len(x_index)):
+	print(X[x_index[i]])
+	print(Y[x_index[i]])
+	print(X_reactions[x_index[i]])
+
+for i in range (len(y_index)):
+	print(X[y_index[i]])
+	print(Y[y_index[i]])
+	print(Y_reactions[y_index[i]])
+
 
 ### Plot Truss + Results ### ----------------------------------------------------------------------
 
@@ -368,12 +380,15 @@ for i, name in enumerate(elements["Name"]):
 	x_coord = [joints["X"][name[0]], joints["X"][name[1]]]
 	y_coord = [joints["Y"][name[0]], joints["Y"][name[1]]]
 
-
-
 	plt.plot(x_coord, y_coord, "ro-")
 	plt.text(mean(x_coord), mean(y_coord), str(round(elements["Value"][i], 2)), fontsize=12)
 	plt.text(x_coord[0], y_coord[0], name[0] , fontsize=12, color = "b", fontweight="bold")
 	plt.text(x_coord[1], y_coord[1], name[1] , fontsize=12, color = "b", fontweight="bold")
 
+	for i in range (len(x_index)):
+		plt.text(X[x_index[i]], ((Y[x_index[i]])+.3),X_reactions[x_index[i]],fontsize=12,)
+
+	for i in range (len(y_index)):
+		plt.text(X[y_index[i]], ((Y[y_index[i]])+.3),Y_reactions[y_index[i]],fontsize=12)
 
 plt.show()
