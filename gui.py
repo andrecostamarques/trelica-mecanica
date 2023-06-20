@@ -132,6 +132,4 @@ print(Elementdata)
 # no que vai conectar : 
 # os dois nois na lista
 
-X_reactions = Jointdata["RX"].tolist() # Reactions in X direction -- transforma em uma array 
-Y_reactions = Jointdata["RY"].tolist() # Reactions in y direction -- transforma em outra array
 
