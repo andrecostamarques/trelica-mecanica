@@ -13,7 +13,7 @@ def verificaVetoresCruzam(A, B, C, D):
         return True
     else:
         return False
-        
+    
 def localizaCruzamentoVetores(A, B, C, D):      #for i in rang()
     # Coordenadas dos pontos dos vetores        if 
     x1, y1 = A
@@ -36,9 +36,19 @@ def localizaCruzamentoVetores(A, B, C, D):      #for i in rang()
     
     return x, y
 
+class Point:
+	def __init__(self,x,y):
+		self.x = x
+		self.y = y
+
+def ccw(A,B,C):
+	return (C.y-A.y)*(B.x-A.x) > (B.y-A.y)*(C.x-A.x)
+
+def intersect(A,B,C,D):
+	return ccw(A,C,D) != ccw(B,C,D) and ccw(A,B,C) != ccw(A,B,D)
+
 x="s" #valor inicial para saber se ele vai executar a primeira entrada de input
 i=0 #contador para inputs
-contador_apoio = 0 #contador pra salvar a quantidade de apoios
 Joint = []
 X = []
 Y = []
@@ -48,6 +58,7 @@ FX = []
 FY = []
 start = []
 end = []
+nos1 = [] 
 
 while x == "s":  #enquanto o valor de contar os inputs está um
 
@@ -56,21 +67,19 @@ while x == "s":  #enquanto o valor de contar os inputs está um
     dy = float(input("Defina o local no eixo Y: ")) #salva a distancia de y
 
     #fala se o ponto tem reação
-    if(contador_apoio <= 1):
-        r = input("Esse nó vai ter apoio? Retorne x para reação no x, y para reação no y e xy para em ambos, pule se nada: ")
-        if r == "x":
-            rx = 1
-            contador_apoio += 1
-        elif r == "y":
-            ry = 1  
-            contador_apoio += 1
-        elif r == "xy":
-            rx = 1
-            ry = 1
-            contador_apoio += 1
-        else:
-            rx = 0
-            ry = 0
+    r = input("Esse nó vai ter apoio? Retorne x para reação no x, y para reação no y e xy para em ambos, pule se nada: ")
+    if r == "x":
+        rx = 1
+        ry = 0
+    elif r == "y":
+        ry = 1
+        rx = 0  
+    elif r == "xy":
+        rx = 1
+        ry = 1
+    else:
+        rx = 0
+        ry = 0
 
     #salva os valores em uma matriz/lista
 
@@ -127,6 +136,21 @@ while x < (len(Joint)-1):
 
 start.reverse() ##inverte o 
 end.reverse()
+
+for i in range(len(Joint)):
+    nos1.append((X[i],Y[i]))  
+    
+for i in range(len(start)): #indice de cada um que tem no start
+    for j in range(len(start)):
+        noA = nos1[int(ord(start[i])-65)]
+        noB = nos1[int(ord(end[i])-65)]
+        noC = nos1[int(ord(start[j])-65)]
+        noD = nos1[int(ord(end[j])-65)]
+        if verificaVetoresCruzam(noA, noB, noC, noD):
+            intersecao = localizaCruzamentoVetores(noA, noB, noC, noD)
+            if not any((no[0], no[1]) == intersecao for no in nos1):
+                raise ValueError("Houve cruzamento de membros não desejado!")
+
 
 print(start)
 print(end)

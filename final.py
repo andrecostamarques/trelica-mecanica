@@ -45,10 +45,10 @@ while x == "s":  #enquanto o valor de contar os inputs está um
     if(contador_apoio <= 1):
         r = input("Esse nó vai ter apoio? Retorne x para reação no x, y para reação no y e xy para em ambos, pule se nada: ")
         if r == "x":
-            rx = 1
+            rx = 1; ry = 0
             contador_apoio += 1
         elif r == "y":
-            ry = 1  
+            ry = 1; rx = 0  
             contador_apoio += 1
         elif r == "xy":
             rx = 1
